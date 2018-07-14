@@ -21,16 +21,6 @@ services:
       - users-db
     links:
       - users-db
-  nginx:
-    container_name: nginx
-    build: ./services/nginx
-    restart: always
-    ports:
-      - 80:80
-    depends_on:
-      - users
-    expose:
-    - '5000'
 
   users-db:
     container_name: users-db

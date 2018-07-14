@@ -3,7 +3,7 @@
 
 from flask import Blueprint, jsonify, request, render_template
 
-from project.api.models import User
+from project.api.models import User, Exrate
 from project import db
 
 from sqlalchemy import exc
@@ -90,5 +90,25 @@ def index():
         email = request.form['email']
         db.session.add(User(username=username, email=email))
         db.session.commit()
+
     users = User.query.all()
     return render_template('index.html', users=users)
+
+
+@users_blueprint.route('/exrate', methods=['GET', 'POST'])
+def exrate_f():
+
+    if request.method == 'POST':
+        rate_from = request.form['rate_from']
+        rate_to = request.form['rate_to']
+        rate = request.form['rate']
+        rate_date = request.form['rate_date']
+        user = Exrate.query.filter_by(rate_from=rate_from).first()
+        if not user:
+        	db.session.add(Exrate(rate_from=rate_from, rate_to=rate_to, rate_date=rate_date, rate=rate))
+        	db.session.commit()
+        	notes='Sukses'
+        else:
+        	notes='Gagal'
+    exrates = Exrate.query.all()
+    return render_template('exrate.html', exrates=exrates)

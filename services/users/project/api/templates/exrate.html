@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Flask on Docker</title>
+    <title>ExRate</title>
     <!-- meta -->
     <meta name="description" content="">
     <meta name="author" content="">
@@ -19,19 +19,34 @@
       <div class="row">
         <div class="col-md-6">
           <br>
-          <h1>All Users</h1>
+          <h1>All Exchange</h1>
           <hr><br>
           <form action="/exrate" method="POST">
             <div class="form-group">
+              <label>Date</label>
               <input
-                name="username" class="form-control input-lg"
-                type="text" placeholder="Enter a username" required>
+                name="rate_date" class="form-control input-lg" id='datetimepicker1'
+                type="text" placeholder="Enter Rate Date 2018-10-28" required>
             </div>
             <div class="form-group">
+              <label>From</label>
               <input
-                name="email" class="form-control input-lg"
-                type="email" placeholder="Enter an email address" required>
+                name="rate_from" class="form-control input-lg"
+                type="text" placeholder="Enter From" required>
             </div>
+            <div class="form-group">
+              <label>To</label>
+              <input
+                name="rate_to" class="form-control input-lg"
+                type="text" placeholder="Enter To" required>
+            </div>
+            <div class="form-group">
+              <label>Rate</label>
+              <input
+                name="rate" class="form-control input-lg" 
+                type="text" placeholder="Enter Rate" required>
+            </div>
+            
             <input
               type="submit" class="btn btn-primary btn-lg btn-block"
               value="Submit">
@@ -39,10 +54,10 @@
           <br>
             
           <hr>
-            {% if users %}
+            {% if exrates %}
               <ol>
-                {% for user in users %}
-                  <li>{{user.username}} = {{user.email}} = {{user.id}}</li>
+                {% for exrate in exrates %}
+                  <li>{{exrate.rate_from}} = {{exrate.rate_to}} = {{exrate.rate_date}}</li>
                 {% endfor %}
               </ol>
             {% else %}
@@ -61,6 +76,13 @@
       type="text/javascript"
       src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     >
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: 'LT'
+            });
+        });
     </script>
     {% block js %}{% endblock %}
   </body>
