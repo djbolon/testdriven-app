@@ -8,8 +8,11 @@
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <!-- styles -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"rel="stylesheet">
-  {% block css %}{% endblock %}
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+    {% block css %}{% endblock %}
   </head>
   <body>
     <div class="container">
@@ -25,30 +28,12 @@
             <li><a href="/deleterate">User wants to remove an exchange rate from the list</a></li>
           </ul>
           <br>
-          <form action="/exrate" method="POST">
+          <form action="/daterate" method="POST">
             <div class="form-group">
               <label>Date</label>
               <input
                 name="rate_date" class="form-control input-lg" id='datetimepicker1'
                 type="text" placeholder="Enter Rate Date 2018-10-28" required>
-            </div>
-            <div class="form-group">
-              <label>From</label>
-              <input
-                name="rate_from" class="form-control input-lg"
-                type="text" placeholder="Enter From" required>
-            </div>
-            <div class="form-group">
-              <label>To</label>
-              <input
-                name="rate_to" class="form-control input-lg"
-                type="text" placeholder="Enter To" required>
-            </div>
-            <div class="form-group">
-              <label>Rate</label>
-              <input
-                name="rate" class="form-control input-lg" 
-                type="text" placeholder="Enter Rate" required>
             </div>
             
             <input
@@ -58,42 +43,49 @@
           <br>
             
           <hr>
-          {% if not user %}
-            <h1>Sukses Input Data</h1>
-          {% else %}
-              <h1>Already data Input </h1>
-          {% endif %}
             <table class="table table-hover">
             <thead>
             <tr>
               <th>From</th>
               <th>To</th>
               <th>Rate</th>
-              <th>Date</th>
+              <th>7-day avg</th>
             </tr>
             </thead>
             <tbody>
-            {% if exrates %}
-                {% for exrate in exrates %}
-              <tr>
-                  <td>{{exrate.rate_from}}</td>
-                  <td>{{exrate.rate_to}} </td>
+            {% for delrate in delrates %}
+              {% for exrate in exrates %}
+                <tr>
+                  {% if ((delrate.rate_from == exrate.rate_from) and 
+                          (delrate.rate_to == exrate.rate_to)):  
+                  %}
+                  <td>{{delrate.rate_from}}</td>
+                  <td>{{delrate.rate_to}}</td>
                   <td>{{exrate.rate}} </td>
-                  <td>{{exrate.rate_date}}</td>
-              </tr>
-                {% endfor %}
-            {% else %}
-              <p>No Rates!</p>
-            {% endif %}
+                  <td>{{exrate.rate}} </td>
+                  {% else %}
+                  
+                  {% endif %}
+                </tr>
+              {% endfor %}
+            {% endfor %}
+
             </tbody>
             </table>
-
           </div>
         </div>
       </div>
     </div>
     <!-- scripts -->
-    <script type="text/javascript"src="//code.jquery.com/jquery-2.2.4.min.js"></script> <script type="text/javascript"src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"> </script>
+    <script
+      type="text/javascript"
+      src="//code.jquery.com/jquery-2.2.4.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    >
+    </script>
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker1').datetimepicker({

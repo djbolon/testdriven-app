@@ -3,8 +3,9 @@
 
 from flask import Blueprint, jsonify, request, render_template
 
-from project.api.models import User, Exrate
+from project.api.models import User, Exrate, ListExrate
 from project import db
+from datetime import date
 
 from sqlalchemy import exc
 
@@ -95,6 +96,12 @@ def index():
     return render_template('index.html', users=users)
 
 
+
+
+
+
+
+
 @users_blueprint.route('/exrate', methods=['GET', 'POST'])
 def exrate_f():
 
@@ -103,12 +110,62 @@ def exrate_f():
         rate_to = request.form['rate_to']
         rate = request.form['rate']
         rate_date = request.form['rate_date']
-        user = Exrate.query.filter_by(rate_from=rate_from).first()
+        user = Exrate.query.filter_by(rate_date=rate_date,rate_from=rate_from,rate_to=rate_to).first()
         if not user:
         	db.session.add(Exrate(rate_from=rate_from, rate_to=rate_to, rate_date=rate_date, rate=rate))
         	db.session.commit()
         	notes='Sukses'
         else:
         	notes='Gagal'
-    exrates = Exrate.query.all()
-    return render_template('exrate.html', exrates=exrates)
+    user =''
+    
+    exrates = Exrate.query.filter_by(rate_date=date.today())
+    return render_template('exrate.html', exrates=exrates,user=user)
+
+@users_blueprint.route('/addexrate', methods=['GET', 'POST'])
+def add_exrate():
+
+    if request.method == 'POST':
+        rate_from = request.form['rate_from']
+        rate_to = request.form['rate_to']
+        today=date.today()
+        user = ListExrate.query.filter_by(rate_from=rate_from,rate_to=rate_to).first()
+        if not user:
+        	db.session.add(ListExrate(rate_from=rate_from, rate_to=rate_to))
+        	db.session.commit()
+        	notes='Sukses'
+        else:
+        	notes='Gagal'
+    user =''
+    exrates = ListExrate.query.all()
+    return render_template('addexrate.html', delrates=exrates,user=user)
+
+@users_blueprint.route('/daterate', methods=['GET', 'POST'])
+def daterate_f():
+
+    if request.method == 'POST':
+        rate_date = request.form['rate_date']
+        exrates = Exrate.query.filter_by(rate_date=rate_date).all()
+        delrates = ListExrate.query.filter_by().all()
+    else:
+    	exrates = Exrate.query.filter_by(rate_date=date.today()).all()
+    	#exrates = db.session.query(Exrate).join(ListExrate, Exrate.rate_from == ListExrate.rate_from).first()
+    	#exrates = for exrate in ListExrate.query.all()
+    	delrates = ListExrate.query.all()
+    	
+    return render_template('ratedate.html', exrates=exrates,delrates=delrates)
+
+
+@users_blueprint.route('/deleterate', methods=['GET', 'POST'])
+def deleterate_f():
+
+    if request.method == 'POST':
+        rate_from = request.form['rate_from']
+        rate_to = request.form['rate_to']
+        ListExrate.query.filter_by(rate_from=rate_from,rate_to=rate_to).delete()
+        db.session.commit()
+        delrates = ListExrate.query.all()
+    else:
+    	delrates = ListExrate.query.all()
+    	
+    return render_template('deleterate.html', delrates=delrates)
