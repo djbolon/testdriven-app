@@ -8,19 +8,22 @@
 
 # Prepare  :
 
-```
 Build the images:
-
+```
 $ docker-compose -f docker-compose-dev.yml build
+```
 Run the containers:
-
+```
 $ docker-compose -f docker-compose-dev.yml up -d
-Create the database:
+```
 
+Create the database:
+```
 $ docker-compose -f docker-compose-dev.yml \
   run users python manage.py recreate_db
+```
 Seed the database:
-
+```
 $ docker-compose -f docker-compose-dev.yml \
   run users python manage.py seed_db
 ```
@@ -40,7 +43,7 @@ rate
 | public | rates     | table | postgres     |
 
 ```
- users_dev=# select * from listrates;
+ select * from listrates;
 ```
 
   | id | rate_from | rate_to |      rate_date          |
@@ -53,7 +56,7 @@ rate
 (5 rows)
 
 ```
-users_dev=# select * from rates;
+select * from rates;
 ```
 
 | id | rate_from | rate_to |  rate   |      rate_date         |
