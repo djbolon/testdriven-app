@@ -13,30 +13,31 @@ rate
 
 DB : 
 
- Schema |   Name    | Type  |  Owner   
---------+-----------+-------+----------
- public | listrates | table | postgres
- public | rates      | table | postgres
+| Schema |   Name    | Type  |  Owner       |
+|--------+-----------+-------+----------    |
+| public | listrates | table | postgres     |
+| public | rates      | table | postgres    |
 
 
  users_dev=# select * from listrates;
- id | rate_from | rate_to |      rate_date      
-----+-----------+---------+---------------------
-  2 | EUR       | USD     | 2018-07-15 00:00:00
-  3 | USD       | IDR     | 2018-07-15 00:00:00
-  4 | GBP       | JPY     | 2018-07-15 00:00:00
-  5 | HKS       | USD     | 2018-07-17 00:00:00
-  6 | IDR       | USD     | 2018-07-17 00:00:00
+  | id | rate_from | rate_to |      rate_date         |
+  | ----+-----------+---------+---------------------  |
+  | 2 | EUR       | USD     | 2018-07-15 00:00:00     |
+  | 3 | USD       | IDR     | 2018-07-15 00:00:00     |
+  | 4 | GBP       | JPY     | 2018-07-15 00:00:00     |
+  | 5 | HKS       | USD     | 2018-07-17 00:00:00     |
+  | 6 | IDR       | USD     | 2018-07-17 00:00:00     |
 (5 rows)
 
 
 users_dev=# select * from rates;
- id | rate_from | rate_to |  rate   |      rate_date      
-----+-----------+---------+---------+---------------------
-  1 | EUR       | IDR     | 1029139 | 2018-07-15 00:00:00
-  2 | EUR       | USD     | 10293   | 2018-07-15 00:00:00
-  3 | GBP       | JPY     | 109733  | 2018-07-15 00:00:00
-  4 | EUR       | USD     | 109273  | 2018-10-17 00:00:00
-  5 | EUR       | USD     | 109273  | 2018-10-17 00:00:00
-  6 | USD       | IDR     | 109373  | 2018-10-17 00:00:00
+| id | rate_from | rate_to |  rate   |      rate_date         |
+|----+-----------+---------+---------+---------------------   |
+|  1 | EUR       | IDR     | 1029139 | 2018-07-15 00:00:00    |
+|  2 | EUR       | USD     | 10293   | 2018-07-15 00:00:00    |
+|  3 | GBP       | JPY     | 109733  | 2018-07-15 00:00:00    |
+|  4 | EUR       | USD     | 109273  | 2018-10-17 00:00:00    |
+|  5 | EUR       | USD     | 109273  | 2018-10-17 00:00:00    |
+|  6 | USD       | IDR     | 109373  | 2018-10-17 00:00:00    |
+
 (6 rows)
