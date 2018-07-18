@@ -1,11 +1,14 @@
+# BE Test
+
 1. User wants to input daily exchange rate data = url /exrate
 2. User has a list of exchange rates to be tracked = url /daterate
 3. User wants to add an exchange rate to the list = url /addexrate
 4. User wants to remove an exchange rate from the list = url /deleterate
 
 
-Use :
+# Prepare  :
 
+```
 Build the images:
 
 $ docker-compose -f docker-compose-dev.yml build
@@ -20,24 +23,25 @@ Seed the database:
 
 $ docker-compose -f docker-compose-dev.yml \
   run users python manage.py seed_db
-
-input_field :
-
+```
+# input_field :
+```
 rate_from
 rate_to
 rate_date
 rate
+```
 
-DB : 
+# DB : 
 
 | Schema |   Name    | Type  |  Owner       |
 |--------|-----------|-------|----------    |
 | public | listrates | table | postgres     |
 | public | rates     | table | postgres     |
 
-
+```
  users_dev=# select * from listrates;
-
+```
 
   | id | rate_from | rate_to |      rate_date          |
   | ---|-----------|---------|---------------------    |
@@ -48,8 +52,9 @@ DB :
   |  6 | IDR       | USD     | 2018-07-17 00:00:00     |
 (5 rows)
 
-
+```
 users_dev=# select * from rates;
+```
 
 | id | rate_from | rate_to |  rate   |      rate_date         |
 |----|-----------|---------|---------|---------------------   |
