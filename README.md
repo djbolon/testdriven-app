@@ -4,6 +4,23 @@
 4. User wants to remove an exchange rate from the list = url /deleterate
 
 
+Use :
+
+Build the images:
+
+$ docker-compose -f docker-compose-dev.yml build
+Run the containers:
+
+$ docker-compose -f docker-compose-dev.yml up -d
+Create the database:
+
+$ docker-compose -f docker-compose-dev.yml \
+  run users python manage.py recreate_db
+Seed the database:
+
+$ docker-compose -f docker-compose-dev.yml \
+  run users python manage.py seed_db
+
 input_field :
 
 rate_from
