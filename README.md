@@ -16,10 +16,12 @@ DB :
 | Schema |   Name    | Type  |  Owner       |
 |--------|-----------|-------|----------    |
 | public | listrates | table | postgres     |
-| public | rates     | table | postgres    |
+| public | rates     | table | postgres     |
 
 
  users_dev=# select * from listrates;
+
+
   | id | rate_from | rate_to |      rate_date          |
   | ---|-----------|---------|---------------------    |
   |  2 | EUR       | USD     | 2018-07-15 00:00:00     |
@@ -31,6 +33,7 @@ DB :
 
 
 users_dev=# select * from rates;
+
 | id | rate_from | rate_to |  rate   |      rate_date         |
 |----|-----------|---------|---------|---------------------   |
 |  1 | EUR       | IDR     | 1029139 | 2018-07-15 00:00:00    |
